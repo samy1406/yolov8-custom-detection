@@ -4,9 +4,8 @@ train: images/train
 val: images/val
 
 nc: 4
-
 names:
-  0: 'Bacterial_Leaf_Blight'
+  0: 'Bacteria_Leaf_Blight'
   1: 'Brown_Spot'
-  2: 'Leaf_Blast'
-  3: 'Healthy'
+  2: 'Leaf_Smut'
+  3: 'Rice_Leaf'

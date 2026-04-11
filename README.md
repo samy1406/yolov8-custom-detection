@@ -47,6 +47,7 @@ pip install -r requirements.txt
 python src/predict.py --source your_image.jpg
 ```
 
+
 ## What I Learned
 - How YOLOv8's anchor-free head differs from earlier YOLO versions
 - Why including a "Healthy" class prevents false positive detections
@@ -56,3 +57,5 @@ python src/predict.py --source your_image.jpg
 ## Dataset
 Downloaded from Roboflow. Annotated with bounding boxes around 
 disease regions. ~N images across 4 classes.
+
+start
