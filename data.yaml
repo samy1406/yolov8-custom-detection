@@ -1,11 +1,14 @@
 # Rice Disease Detection Dataset
+# Source: https://universe.roboflow.com/rice-dataset-evccc/rice-plant-disease-detection-ibpov
+
 path: ../data
 train: images/train
 val: images/val
 
 nc: 4
+
 names:
-  0: 'Bacteria_Leaf_Blight'
+  0: 'bacterial_blight'
   1: 'Brown_Spot'
-  2: 'Leaf_Smut'
-  3: 'Rice_Leaf'
+  2: 'Healthy_Leaf'
+  3: 'Rice_Blast'
