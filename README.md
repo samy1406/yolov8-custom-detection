@@ -14,7 +14,7 @@ caught early. This project builds a real-time detection system using
 YOLOv8 to localize and classify disease regions on rice leaves.
 
 ## Dataset
-- Source: Roboflow — Rice Plant Disease Detection
+- Source: [Roboflow — Rice Plant Disease Detection](https://universe.roboflow.com/rice-dataset-evccc/rice-plant-disease-detection-ibpov)
 - 3,000 images across 4 classes
 - Format: YOLOv8 (normalized bounding boxes)
 
