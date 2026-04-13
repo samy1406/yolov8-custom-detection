@@ -1,61 +1,65 @@
 # 🌾 Rice Disease Detection using YOLOv8
 
-![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![YOLOv8](https://img.shields.io/badge/YOLOv8-Ultralytics-orange)
-![Status](https://img.shields.io/badge/Status-In%20Progress-yellow)
-
-## Problem Statement
-Rice is one of India's most critical crops. Diseases like Bacterial Leaf 
-Blight, Brown Spot, and Leaf Blast can devastate yields if not caught early.
-This project builds a real-time detection system using YOLOv8 to localize 
-and classify disease regions on rice leaves — enabling farmers to get 
-instant, precise diagnosis from a phone camera.
+![Status](https://img.shields.io/badge/Status-Complete-green)
 
 ## Demo
-> GIF coming after training
+![demo](assets/demo.gif)
 
-## Classes Detected
-| Class | Description |
-|-------|-------------|
-| Bacterial Leaf Blight | Water-soaked lesions along leaf margins |
-| Brown Spot | Circular brown spots, often with yellow halo |
-| Leaf Blast | Diamond-shaped lesions, gray-white center |
-| Healthy | No disease present |
-
-## Architecture
-- **Model**: YOLOv8n (nano) for speed, upgradeable to YOLOv8s/m
-- **Dataset**: [Roboflow — link coming]
-- **Training**: Google Colab (T4 GPU)
-- **Inference**: GitHub Codespace / CPU
-
-## Results
-| Model | mAP@50 | Precision | Recall |
-|-------|--------|-----------|--------|
-| YOLOv8n | TBD | TBD | TBD |
-
-## Project Structure
-yolov8-custom-detection/
-├── data/               # Dataset (downloaded via Roboflow, not committed)
-├── notebooks/          # Colab training notebook
-├── src/                # Inference scripts
-├── assets/             # Demo GIFs and architecture diagrams
-└── data.yaml           # Dataset config for YOLOv8
-
-## Setup & Run
-```bash
-pip install -r requirements.txt
-python src/predict.py --source your_image.jpg
-```
-
-
-## What I Learned
-- How YOLOv8's anchor-free head differs from earlier YOLO versions
-- Why including a "Healthy" class prevents false positive detections
-- How annotation quality affects mAP more than model size
-- Tradeoffs between YOLOv8n vs YOLOv8s for edge deployment
+## Problem Statement
+Rice is one of India's most critical crops. Diseases like Bacterial 
+Leaf Blight, Brown Spot, and Rice Blast can devastate yields if not 
+caught early. This project builds a real-time detection system using 
+YOLOv8 to localize and classify disease regions on rice leaves.
 
 ## Dataset
-Downloaded from Roboflow. Annotated with bounding boxes around 
-disease regions. ~N images across 4 classes.
+- Source: Roboflow — Rice Plant Disease Detection
+- 3,000 images across 4 classes
+- Format: YOLOv8 (normalized bounding boxes)
 
-start
+| Class | mAP50 |
+|-------|-------|
+| Healthy Leaf | 0.981 |
+| Brown Spot | 0.683 |
+| Bacterial Blight | 0.431 |
+| Rice Blast | 0.311 |
+| **Overall** | **0.602** |
+
+## Training
+- Model: YOLOv8n pretrained on COCO
+- Epochs: 50
+- Image size: 640x640
+- Hardware: Google Colab T4 GPU
+
+## Training Curves
+![results](assets/metrics.webp)
+
+## Confusion Matrix
+![confusion](assets/confusion.webp)
+
+## How to Run
+
+### Install dependencies
+pip install -r requirements.txt
+
+### Run inference
+python src/predict.py --source your_image.jpg --weights best.pt --conf 0.40 --save
+
+## Model Weights
+Download best.pt
+
+## What I Learned
+- YOLOv8 uses normalized coordinates (0-1) making the model 
+  resolution agnostic and augmentation-friendly
+- Including a Healthy class is critical — without it the model 
+  has no concept of normal and hallucinates detections
+- DFL loss models box edges as probability distributions, which 
+  helps with disease lesions that have ambiguous boundaries
+- The confusion matrix revealed a data problem not a model problem —
+  Brown Spot heavily bled into background due to annotation ambiguity
+- Domain knowledge matters for threshold selection — in agriculture 
+  false negatives (missing disease) are worse than false positives,
+  so a lower threshold of 0.40 is appropriate
+- opencv-python-headless is the correct choice for server/container 
+  environments that have no display
