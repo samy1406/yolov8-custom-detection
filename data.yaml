@@ -8,7 +8,7 @@ val: images/val
 nc: 4
 
 names:
-  0: 'bacterial_blight'
-  1: 'Brown_Spot'
-  2: 'Healthy_Leaf'
-  3: 'Rice_Blast'
+  0: 'Brown_Spot'
+  1: 'Healthy_Leaf'
+  2: 'Rice_Blast'
+  3: 'bacterial_blight'
